@@ -22,9 +22,9 @@ db.init_app(app)
 
 
 # ── DB init ───────────────────────────────────────────────────────────────────
-with app.app_context():
-    db.create_all()
-    seed_demo_tasks()
+# with app.app_context():
+#     db.create_all()
+#     seed_demo_tasks()
 
 
 # ── Pages ─────────────────────────────────────────────────────────────────────
