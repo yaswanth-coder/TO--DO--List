@@ -4,3 +4,4 @@ Flask-SQLAlchemy
 SQLAlchemy
 Flask-Cors
 requests
+pymysql
