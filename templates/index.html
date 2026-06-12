@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FlowTask — Premium Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Bricolage+Grotesque:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+
+  <!-- ── Background ────────────────────────────────────────────── -->
+  <video id="video-bg" autoplay muted loop playsinline
+    src="https://assets.mixkit.co/videos/preview/mixkit-abstract-technology-connection-network-30-large.mp4">
+  </video>
+  <div class="bg-overlay"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <div class="app">
+
+    <!-- ── Header ──────────────────────────────────────────────── -->
+    <header>
+      <div class="logo">FlowTask</div>
+      <div class="header-right">
+        <div class="status-pill">
+          <span class="pulse"></span>
+          AI Ready
+        </div>
+        <div class="avatar">JD</div>
+      </div>
+    </header>
+
+    <!-- ── Main Grid ────────────────────────────────────────────── -->
+    <main>
+
+      <!-- Stat cards -->
+      <div class="stats">
+        <div class="glass stat-card s1">
+          <div class="stat-icon">📋</div>
+          <div class="stat-label">Total Tasks</div>
+          <div class="stat-value v" id="stat-total">—</div>
+          <div class="stat-meta">All time</div>
+        </div>
+        <div class="glass stat-card s2">
+          <div class="stat-icon">✅</div>
+          <div class="stat-label">Completed</div>
+          <div class="stat-value c" id="stat-done">—</div>
+          <div class="stat-meta">Keep it up!</div>
+        </div>
+        <div class="glass stat-card s3">
+          <div class="stat-icon">🔥</div>
+          <div class="stat-label">High Priority</div>
+          <div class="stat-value r" id="stat-high">—</div>
+          <div class="stat-meta">Needs focus</div>
+        </div>
+        <div class="glass stat-card s4">
+          <div class="stat-icon">📈</div>
+          <div class="stat-label">Completion</div>
+          <div class="stat-value e" id="stat-pct">—</div>
+          <div class="stat-meta">Your momentum</div>
+        </div>
+      </div>
+
+      <!-- Quote banner -->
+      <div class="glass quote-banner">
+        <div class="quote-body">
+          <div class="quote-text" id="quote-text">The secret of getting ahead is getting started.</div>
+          <div class="quote-author" id="quote-author">— Mark Twain</div>
+        </div>
+        <button class="btn-quote" onclick="nextQuote()">✦ New Quote</button>
+      </div>
+
+      <!-- ── Todo Panel ──────────────────────────────────────────── -->
+      <div class="glass todo-panel">
+        <div class="panel-head">
+          <div class="panel-title">My Tasks</div>
+          <div class="filters">
+            <button class="filter-btn active" onclick="setFilter(this,'all')">All</button>
+            <button class="filter-btn" onclick="setFilter(this,'active')">Active</button>
+            <button class="filter-btn" onclick="setFilter(this,'done')">Done</button>
+          </div>
+        </div>
+
+        <!-- Progress bar -->
+        <div class="prog-row">
+          <div class="prog-track">
+            <div class="prog-fill" id="prog-fill" style="width:0%"></div>
+          </div>
+          <div class="prog-pct" id="prog-pct">0%</div>
+        </div>
+
+        <!-- Add task row -->
+        <div class="add-row">
+          <input
+            class="task-input"
+            id="task-input"
+            placeholder="Add a new task…"
+            autocomplete="off"
+          />
+          <select class="pri-select" id="pri-select">
+            <option value="high">🔴 High</option>
+            <option value="medium" selected>🟡 Medium</option>
+            <option value="low">🟢 Low</option>
+          </select>
+          <button class="btn-add" onclick="addTask()" title="Add task">+</button>
+        </div>
+
+        <!-- Task list -->
+        <div class="task-list" id="task-list">
+          <div class="empty-state">
+            <div class="empty-icon">✦</div>
+            <div>Loading tasks…</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── AI Panel ────────────────────────────────────────────── -->
+      <div class="glass ai-panel">
+        <div class="ai-head">
+          <div class="ai-badge">✦</div>
+          <div class="ai-title">AI Assistant</div>
+          <div class="ai-powered">Powered by Claude</div>
+        </div>
+
+        <div class="chip-row">
+          <span class="chip" onclick="quickPrompt('Prioritize my tasks for today')">Prioritize tasks</span>
+          <span class="chip" onclick="quickPrompt('Suggest a focused daily routine')">Daily routine</span>
+          <span class="chip" onclick="quickPrompt('Give me tips to improve my focus')">Focus tips</span>
+          <span class="chip" onclick="quickPrompt('Break down my high priority tasks into steps')">Break it down</span>
+        </div>
+
+        <div class="ai-msgs" id="ai-msgs">
+          <div class="msg bot">
+            👋 Hey! I'm your AI productivity coach. I can see your tasks and help you prioritize, plan, and stay focused. What's on your mind?
+          </div>
+        </div>
+
+        <div class="ai-input-row">
+          <input
+            class="ai-input"
+            id="ai-input"
+            placeholder="Ask me anything…"
+            autocomplete="off"
+          />
+          <button class="btn-send" onclick="sendAI()" title="Send">➤</button>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- JS loaded from /static — API key is NEVER here -->
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
