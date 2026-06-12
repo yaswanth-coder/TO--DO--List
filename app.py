@@ -22,8 +22,7 @@ db.init_app(app)
 
 
 # ── DB init ───────────────────────────────────────────────────────────────────
-@app.before_request
-def initialise_db():
+with app.app_context():
     db.create_all()
     seed_demo_tasks()
 
