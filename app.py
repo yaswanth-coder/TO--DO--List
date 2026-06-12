@@ -2,6 +2,7 @@
 import os
 import requests
 from datetime import datetime
+import requests
 
 from flask import Flask, jsonify, request, render_template
 from flask_cors import CORS
